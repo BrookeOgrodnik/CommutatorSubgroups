@@ -15,7 +15,7 @@ This repository is dedicated to supplementary materials for my thesis. Many of t
   - Type 2: Search algorithms for finding elements in the commutator subgroup
   - Running 11.2.0.0
   
- * Python Code
+* Python Code
   - This folder contains two type of python notebooks.  
   - Type 1: Creates images and dataframes to play with info from the CSV files
   - Type 2: Runs searches for the genus of conjugacy classes
