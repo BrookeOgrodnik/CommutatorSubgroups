@@ -4,7 +4,7 @@ This repository is dedicated to supplementary materials for my thesis. Many of t
 ## Folders in this Repository
 * App
   - This folder contains the code for my mini online application that I created for playing with some of the matrices in the commutator subgroup of $\Gamma(2)$.
-  - The app uses python and is deployed on Heroku
+  - The app uses python and is deployed on [Heroku]()
   
 * CSV
   - Holds all of the .csv files that different codes mentioned below produce  
