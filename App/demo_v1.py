@@ -331,8 +331,10 @@ if decomp:
 						plt.plot(points[0], points[1], 'go-.')
 						plt.plot(0,0, 'ro')
 						st.pyplot()
-					if genusq: 
-						if len(lists[0])<=3:
+					if genusq:
+						if sum(lists[0])!=0 or sum(lists[1])!=0:
+							st.success("This is not in the commutator subgroup so it has no genus")
+						elif len(lists[0])<=3:
 							st.success("This is a 1-commutator!")   
 							st.balloons()                            
 						else:
