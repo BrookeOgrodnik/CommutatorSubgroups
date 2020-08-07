@@ -4,7 +4,7 @@
   - Created using Streamlit
   - Python version python-3.7.6
   - other packages reccomended can be seen in requirements.txt
-  - Deployed using [Heroku]()
+  - Deployed using [Heroku](https://classnumbers-and-walks.herokuapp.com/)
   
  * Keep in Mind
    - If it has been a while since someone has ran the app, it will take a bit to load (the sacrifices we make to avoid spending money) 
