@@ -35,9 +35,8 @@ alltraces=setup2()
 #functions needed to make this app work
 #finding the set of traces to choose from that have proper congruences
 @st.cache
-def possibletraces(m256,m9):
-	return alltraces.loc[(((alltraces.trace % 256 == m256) | (-1*alltraces.trace%256== m256))) & (alltraces.trace % 9 == m9)].trace.values
-	
+def possibletraces(m256,m9):  
+	return alltraces.loc[((-1*alltraces.trace % 256 == m256) & (-1*alltraces.trace % 9 == m9)) | ((alltraces.trace % 256 == m256) & (alltraces.trace % 9 == m9))].trace.values 
 
 #the matrix version of our conjugacy classes
 @st.cache
@@ -271,6 +270,9 @@ elif tell_me=="What is a genus?":
 elif tell_me=="What is this picture that goes with the genus?":
 	st.write("First, take a second to note that you don't get a picture if the narrow length (how many times you switch from a to b) is 2 or 3. This is because such elements are always 1-commutators and there is a clear way to write them (for narrow length is 3, lemma in my thesis) so no picture is needed. The picture that you are seeing is if you give each $\\mathcal{A}$, $\\mathcal{B}$, $\\mathcal{A}^{-1}$, and $\\mathcal{B}^{-1}$ it's own point in the order they appear in the matrix.  For example, $[[1,-1],[5,-5]]$ is actually $\\mathcal{A}\\mathcal{B}^5\\mathcal{A}^{-1}\\mathcal{B}^{-5}$ so we plot the points $a, b, b, b, b, b, c, d, d, d, d, d$ in order counterclockwise around the unit circle beginining at $(0,1)$.  Then arcs are drawn between $a$'s and $c$'s and between $b$'s and $d$'s.  The minimum of the 'genus' of all such graphs (which we are obmitting), gives us the genus of the matrix and can be used to explicitly write down the matrix as an $n$-commutator use the paper of Goldstein and Turner from 1979. Note that the larger the walk is, the longer this algorithm will take which is why you aren't allowed to put matrices in whose decomposition is too big.")
 ############################################################################################
+
+
+
 
 ############################################################################################
 #the sidebar feature 1
