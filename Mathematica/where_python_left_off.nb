@@ -27,7 +27,7 @@ ee86deaf30b8"],
 
 Cell[TextData[StyleBox["This function takes the input from where \
 commutator_genus.ipynb left off and sees if there exists 1-commutators for \
-the remaining traces",
+the remaining traces. You will need to change the SetDirectory to the locations of your CSVs.",
  Background->RGBColor[0.87, 0.94, 1]]], "Text",
  CellChangeTimes->{{3.805672279560123*^9, 3.8056722809265127`*^9}, {
   3.8056723222705193`*^9, 3.8056723440438347`*^9}, {3.8056723893877573`*^9, 
