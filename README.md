@@ -3,7 +3,7 @@ This repository is dedicated to supplementary materials for my thesis. Many of t
 
 ## Folders in this Repository
 * App
-  - This folder contains the code for my mini online application that I created for playing with some of the matrices in the commutator subgroup of $\Gamma(2)$.
+  - This folder contains the code for my mini online application that I created for playing with some of the matrices in the commutator subgroup of Gamma(2).
   - The app uses python and is deployed on [Heroku](https://classnumbers-and-walks.herokuapp.com/)
   
 * CSV
@@ -11,7 +11,7 @@ This repository is dedicated to supplementary materials for my thesis. Many of t
   
 * Mathematica
   - This folder contains two type of mathematica notebooks.  
-  - Type 1: The link the brute force calculations obmitted from the thesis
+  - Type 1: Brute force calculations obmitted from the thesis
   - Type 2: Search algorithms for finding elements in the commutator subgroup
   - Running 11.2.0.0
   
