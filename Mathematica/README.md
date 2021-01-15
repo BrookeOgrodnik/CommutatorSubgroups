@@ -3,8 +3,9 @@
 Running 11.2.0.0
 
 * Type 1
-  - groupmodk.nb: This file is supplmentary material for proving what the commutator subgroup of Gamma(2)
-  - tracesmodk.nb: This file is supplmentary material for the proof for the set of traces modulo k in the commutator subgroup of Gamma(2)
+  - groupmodk.nb: This file is supplementary material for proving what the commutator subgroup of Gamma(2)
+  - tracesmodk.nb: This file is supplementary material for the proof for the set of traces modulo k in the commutator subgroup of Gamma(2)
+  - verifiedCalculations: This file is supplementary material for chapter's 5 and 6 where calculations in the thesis are alluded to
   
 * Type 2
   - class_number_search.nb: this search allows you to look for all of the conjugacy classes for given traces with smallest length. You are returned a csv that has all of the conjugacy class reps, their length, their decomposition, and their final position.
