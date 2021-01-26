@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     71645,       1563]
-NotebookOptionsPosition[     69336,       1520]
-NotebookOutlinePosition[     69749,       1538]
-CellTagsIndexPosition[     69706,       1535]
+NotebookDataLength[     79827,       1744]
+NotebookOptionsPosition[     77517,       1701]
+NotebookOutlinePosition[     77930,       1719]
+CellTagsIndexPosition[     77887,       1716]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -839,18 +839,16 @@ Returns  {matrix, decomposition}.\
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"sigma", "[", "g_", "]"}], ":=", 
+  RowBox[{"sigma", "[", 
+   RowBox[{"g_", ",", "dec_"}], "]"}], ":=", 
   RowBox[{"Module", "[", 
    RowBox[{
     RowBox[{"{", 
      RowBox[{
       RowBox[{"notfound", "=", "True"}], ",", " ", 
-      RowBox[{"newg", "=", "g"}], ",", " ", "decomp"}], "}"}], ",", 
-    "\[IndentingNewLine]", 
+      RowBox[{"newg", "=", "g"}], ",", " ", 
+      RowBox[{"decomp", "=", "dec"}]}], "}"}], ",", "\[IndentingNewLine]", 
     RowBox[{
-     RowBox[{"decomp", "=", 
-      RowBox[{"Decomposition", "[", "g", "]"}]}], ";", "\[IndentingNewLine]", 
-     
      RowBox[{"While", "[", 
       RowBox[{"notfound", ",", "\[IndentingNewLine]", 
        RowBox[{"(*", 
@@ -914,15 +912,25 @@ Cell[BoxData[
                     RowBox[{"[", "2", "]"}], "]"}], "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ",", "1"}], "}"}]}], 
                 "}"}]}]}], ";", "\[IndentingNewLine]", 
-             RowBox[{"decomp", "=", 
-              RowBox[{"{", 
+             RowBox[{"(*", 
+              RowBox[{"now", " ", "adjust", " ", "the", " ", "decompositon"}],
+               "*)"}], "\[IndentingNewLine]", 
+             RowBox[{"If", "[", 
+              RowBox[{
                RowBox[{
-                RowBox[{"decomp", "[", 
-                 RowBox[{"[", "1", "]"}], "]"}], ",", 
-                RowBox[{"Flatten", "[", 
-                 RowBox[{"{", 
-                  RowBox[{
-                   RowBox[{
+                RowBox[{"Length", "[", 
+                 RowBox[{"decomp", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], "]"}], ">", "1"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"decomp", "=", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"decomp", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], ",", 
+                  RowBox[{"Flatten", "[", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
                     RowBox[{"decomp", "[", 
                     RowBox[{"[", "2", "]"}], "]"}], "[", 
                     RowBox[{"[", 
@@ -930,12 +938,11 @@ Cell[BoxData[
                     RowBox[{"Length", "[", 
                     RowBox[{"decomp", "[", 
                     RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "]"}], "]"}], 
-                   ",", 
-                   RowBox[{
+                    ",", 
                     RowBox[{"decomp", "[", 
-                    RowBox[{"[", "2", "]"}], "]"}], "[", 
-                    RowBox[{"[", "1", "]"}], "]"}]}], "}"}], "]"}]}], 
-               "}"}]}]}]}], "]"}], ";", "\[IndentingNewLine]", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}]}], "}"}], "]"}]}], 
+                 "}"}]}]}], "]"}]}]}], "]"}], ";", "\[IndentingNewLine]", 
           RowBox[{"notfound", "=", "False"}]}], ",", "\[IndentingNewLine]", 
          RowBox[{"(*", 
           RowBox[{
@@ -944,23 +951,23 @@ Cell[BoxData[
            " ", "A", " ", "we", " ", "conjugate", " ", "and", " ", "then", 
            " ", "redo", " ", "the", " ", "decomposition", " ", "and", " ", 
            RowBox[{"repeat", "."}]}], "*)"}], "\[IndentingNewLine]", 
-         RowBox[{
-          RowBox[{"If", "[", 
+         RowBox[{"If", "[", 
+          RowBox[{
            RowBox[{
-            RowBox[{
-             RowBox[{"Length", "[", 
-              RowBox[{"decomp", "[", 
-               RowBox[{"[", "1", "]"}], "]"}], "]"}], "<", 
-             RowBox[{"Length", "[", 
-              RowBox[{"decomp", "[", 
-               RowBox[{"[", "2", "]"}], "]"}], "]"}]}], ",", 
-            "\[IndentingNewLine]", 
-            RowBox[{"(*", 
-             RowBox[{"more", " ", 
-              RowBox[{"b", "'"}], "s", " ", "so", " ", "we", " ", "conjugate",
-               " ", "to", " ", "move", " ", "the", " ", "B", " ", "in", " ", 
-              "the", " ", "front", " ", "to", " ", "the", " ", "back"}], 
-             "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"Length", "[", 
+             RowBox[{"decomp", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "]"}], "<", 
+            RowBox[{"Length", "[", 
+             RowBox[{"decomp", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], "]"}]}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{"more", " ", 
+             RowBox[{"b", "'"}], "s", " ", "so", " ", "we", " ", "conjugate", 
+             " ", "to", " ", "move", " ", "the", " ", "B", " ", "in", " ", 
+             "the", " ", "front", " ", "to", " ", "the", " ", "back"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{
             RowBox[{"newg", "=", 
              RowBox[{
               RowBox[{"Inverse", "[", 
@@ -987,13 +994,91 @@ Cell[BoxData[
                     RowBox[{"decomp", "[", 
                     RowBox[{"[", "2", "]"}], "]"}], "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ",", "1"}], "}"}]}], 
-               "}"}]}]}], ",", "\[IndentingNewLine]", 
+               "}"}]}]}], ";", "\[IndentingNewLine]", 
             RowBox[{"(*", 
-             RowBox[{"more", " ", 
-              RowBox[{"a", "'"}], "s", " ", "so", " ", "we", " ", "conjugate",
-               " ", "to", " ", "move", " ", "the", " ", "A", " ", "in", " ", 
-              "the", " ", "front", " ", "to", " ", "the", " ", "back"}], 
+             RowBox[{"now", " ", "adjust", " ", "the", " ", "decompositon"}], 
              "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Length", "[", 
+                RowBox[{"decomp", "[", 
+                 RowBox[{"[", "2", "]"}], "]"}], "]"}], "\[Equal]", "2"}], 
+              ",", "\[IndentingNewLine]", 
+              RowBox[{"decomp", "=", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"decomp", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"Total", "[", 
+                   RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "]"}], "}"}], ",", "1"}], 
+                "}"}]}], ",", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"decomp", "=", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"decomp", "[", 
+                   RowBox[{"[", "1", "]"}], "]"}], ",", 
+                  RowBox[{"Flatten", "[", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ";;", 
+                    RowBox[{
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "]"}], "-", "1"}]}], 
+                    "]"}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", 
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "]"}], "]"}], 
+                    "+", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ",", "1"}], "]"}], "]"}]}]}], "}"}], "]"}], 
+                  ",", "1"}], "}"}]}], ";", "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"decomp", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"2", ",", 
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "]"}]}], "]"}], "]"}], 
+                  "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"decomp", "=", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ";;", 
+                    RowBox[{
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "]"}], "-", "1"}]}], 
+                    "]"}], "]"}], ",", "1"}], "}"}]}]}], "]"}]}]}], "]"}]}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"(*", 
+            RowBox[{"more", " ", 
+             RowBox[{"a", "'"}], "s", " ", "so", " ", "we", " ", "conjugate", 
+             " ", "to", " ", "move", " ", "the", " ", "A", " ", "in", " ", 
+             "the", " ", "front", " ", "to", " ", "the", " ", "back"}], 
+            "*)"}], "\[IndentingNewLine]", 
+           RowBox[{
             RowBox[{"newg", "=", 
              RowBox[{
               RowBox[{"Inverse", "[", 
@@ -1019,11 +1104,87 @@ Cell[BoxData[
                     RowBox[{"[", "1", "]"}], "]"}], "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}], ",", 
                 RowBox[{"{", 
-                 RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}]}], "]"}], ";", 
-          "\[IndentingNewLine]", 
-          RowBox[{"decomp", "=", 
-           RowBox[{"Decomposition", "[", "newg", "]"}]}]}]}], "]"}]}], "]"}], 
-     ";", "\[IndentingNewLine]", 
+                 RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}]}], ";", 
+            "\[IndentingNewLine]", 
+            RowBox[{"(*", 
+             RowBox[{"now", " ", "adjust", " ", "the", " ", "decompositon"}], 
+             "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"Length", "[", 
+                RowBox[{"decomp", "[", 
+                 RowBox[{"[", "1", "]"}], "]"}], "]"}], "\[Equal]", "2"}], 
+              ",", "\[IndentingNewLine]", 
+              RowBox[{"decomp", "=", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"Total", "[", 
+                   RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], "}"}], ",", 
+                 RowBox[{"decomp", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "}"}]}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"decomp", "=", 
+                RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"Flatten", "[", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"2", ";;", 
+                    RowBox[{
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], 
+                    "]"}], "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "]"}], "]"}], 
+                    "+", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ",", "1"}], "]"}], "]"}]}]}], "}"}], "]"}], 
+                  ",", 
+                  RowBox[{"decomp", "[", 
+                   RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "}"}]}], ";", 
+               "\[IndentingNewLine]", 
+               RowBox[{"If", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"decomp", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"1", ",", 
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}]}], "]"}], "]"}], 
+                  "\[Equal]", "0"}], ",", "\[IndentingNewLine]", 
+                 RowBox[{"decomp", "=", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "[", 
+                    RowBox[{"[", 
+                    RowBox[{"1", ";;", 
+                    RowBox[{
+                    RowBox[{"Length", "[", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], "-", "1"}]}], 
+                    "]"}], "]"}], ",", 
+                    RowBox[{"decomp", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "2"}], "}"}]}]}], 
+                "]"}]}]}], "]"}]}]}], "]"}]}], "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
      RowBox[{"{", 
       RowBox[{"newg", ",", 
        RowBox[{"decomp", "[", 
@@ -1037,8 +1198,21 @@ Cell[BoxData[
    3.819377837716516*^9}, {3.81937787269283*^9, 3.819378017678522*^9}, {
    3.8193780512397127`*^9, 3.8193780520242453`*^9}, {3.8193781675045347`*^9, 
    3.819378168117008*^9}, {3.81937832236333*^9, 3.8193783230347033`*^9}, 
-   3.8194525715439987`*^9},ExpressionUUID->"013294fe-28e5-4a33-b3e5-\
-be5f2e0c61be"],
+   3.8194525715439987`*^9, {3.820318152179921*^9, 3.820318155203511*^9}, {
+   3.820320799762768*^9, 3.820320805507153*^9}, {3.820320909077876*^9, 
+   3.82032090924535*^9}, {3.820492889986989*^9, 3.820493303433194*^9}, {
+   3.820493450556937*^9, 3.820493450681349*^9}, {3.820493507425741*^9, 
+   3.820493515847475*^9}, {3.820493551773726*^9, 3.820493597099765*^9}, {
+   3.820493634628621*^9, 3.820493693087728*^9}, {3.82049382600041*^9, 
+   3.8204938432493134`*^9}, {3.820493923885386*^9, 3.820493924012402*^9}, {
+   3.820494117085573*^9, 3.8204941876404943`*^9}, {3.820494221166451*^9, 
+   3.8204942573064632`*^9}, {3.8204945509679317`*^9, 3.820494767476489*^9}, 
+   3.820494881414762*^9, {3.82049491436616*^9, 3.820494964476145*^9}, {
+   3.8204952133937273`*^9, 3.820495237711631*^9}, {3.8204952874542503`*^9, 
+   3.820495298611663*^9}, {3.8204953423689013`*^9, 3.8204953816563663`*^9}, {
+   3.820495421423523*^9, 3.8204954779804897`*^9}, {3.820525221461075*^9, 
+   3.820525225940288*^9}},ExpressionUUID->"05477ce7-de11-43ed-a93a-\
+77d1ce94e85c"],
 
 Cell["\<\
 This function takes the representatives of the conjugacy classes that Gauss\
@@ -1067,7 +1241,7 @@ Cell[BoxData[
        RowBox[{"Length", "[", 
         RowBox[{"oldreps", "[", 
          RowBox[{"[", "1", "]"}], "]"}], "]"}]}], ",", "hmat", ",", "g", ",", 
-      " ", "whichgam", ",", " ", "temp", ",", 
+      " ", "whichgam", ",", " ", "temp", ",", "temp2", ",", 
       RowBox[{"Kset", "=", 
        RowBox[{"{", 
         RowBox[{
@@ -1122,7 +1296,10 @@ Cell[BoxData[
           "\[IndentingNewLine]", 
           RowBox[{
            RowBox[{"hmat", "=", 
-            RowBox[{"sigma", "[", "g", "]"}]}], ";", "\[IndentingNewLine]", 
+            RowBox[{"sigma", "[", 
+             RowBox[{"g", ",", 
+              RowBox[{"Decomposition", "[", "g", "]"}]}], "]"}]}], ";", 
+           "\[IndentingNewLine]", 
            RowBox[{"(*", 
             RowBox[{
             "choose", " ", "the", " ", "correct", " ", "representation", " ", 
@@ -1134,15 +1311,19 @@ Cell[BoxData[
              RowBox[{"whichgam", "\[LessEqual]", "4"}], ",", " ", 
              RowBox[{"whichgam", "++"}], ",", "\[IndentingNewLine]", 
              RowBox[{
+              RowBox[{"temp2", "=", 
+               RowBox[{
+                RowBox[{"Kset", "[", 
+                 RowBox[{"[", "whichgam", "]"}], "]"}], ".", "g", ".", 
+                RowBox[{"Inverse", "[", 
+                 RowBox[{"Kset", "[", 
+                  RowBox[{"[", "whichgam", "]"}], "]"}], "]"}]}]}], ";", 
+              "\[IndentingNewLine]", 
               RowBox[{"temp", "=", 
                RowBox[{"sigma", "[", 
-                RowBox[{
-                 RowBox[{"Kset", "[", 
-                  RowBox[{"[", "whichgam", "]"}], "]"}], ".", "g", ".", 
-                 RowBox[{"Inverse", "[", 
-                  RowBox[{"Kset", "[", 
-                   RowBox[{"[", "whichgam", "]"}], "]"}], "]"}]}], "]"}]}], 
-              ";", "\[IndentingNewLine]", 
+                RowBox[{"temp2", ",", " ", 
+                 RowBox[{"Decomposition", "[", "temp2", "]"}]}], "]"}]}], ";",
+               "\[IndentingNewLine]", 
               RowBox[{"If", "[", 
                RowBox[{
                 RowBox[{
@@ -1252,14 +1433,14 @@ Cell[BoxData[
                RowBox[{"loopby", "+", "1"}]}]}]}], "]"}]}]}], "]"}]}]}], 
       "]"}], ";", "\[IndentingNewLine]", "newlist"}]}], "]"}]}]], "Input",
  CellChangeTimes->CompressedData["
-1:eJwdxTtIAgEABuAjhLSCBCECKXQoNbIhRAfBOJAUwpBQiXKoC0OIUlLDSSws
-KIgiBGloKwopCrLJNMuCShGChgJFLemF9ALDHkL33/DxCSlbn6WKIAg+DY8q
-Jb9ZZ5H0f31U8FVXOytHX2Dnm/FjXVqMPdM1Bvy2zerH13KTGfPsNz7MPhtf
-xOHX9D4uhRUHmPxsCmPuiewIi57X4ng+cJnFDRV7AcdCzm/cZtjg5enFw1nm
-cgtfgOs3JUJMnjd2YsdMVIFTlowW5/Yieqx68j7c0fcoM0W84hpj3dO3ZiLM
-/pBGjnW3sypc65Gp8dDxqhavV6Q6HJ9MMr8M7hhxTDpnwhKVxowFnAkKd5Q4
-VpxUc5kPl6xu/EPZmP8MA17c7Rth3nLoIzgVFEXxAnf3Ak8FqhOYSvQSBfrQ
-spv5Jyg2nLqK5HuZMuJ/NVXyoQ==
+1:eJwdxU8oQwEAB+DRiqGsFimj7cA2mYPWHFbTq2UrTVqzxA48TSuxxbCLNRpF
+ibRaDm5Eiyhzmg0bha2VcqC2trH8a/7WNGPl/d7h6+OTJo2hkMFgcCl4UCb6
+jVvShPP7M4+vWhuZCepUcbIWP5ZFhdg2XaLF79vMbnwt1ekxx3zjwMVnw4vY
++xbdxxlvywEmvmq8mB2QHGHB81oQz7su47gyb07hY4/lBzdoNzhJamF/nD5b
+V83D5ZsiPibOq5rx2Iy/BUcMMRVO7Pk6sfzJ/nBH3S6LpfHK+BDznro+5qN3
+epRSrL6dleNSm0SB+05WVXg9L1bj4GiY/qV3pwsfi+d0WCRX6jGPNULipgzL
+iMMKNv3hktGKc6SJ/k/bY8dtjgH6rbFOH464BX68wN69wBOuohAmQx2MFLVn
+2Uqfcwu1p+Np4iNLduHAVEGFZjJNaHZeufgfnUH56w==
   
   "],ExpressionUUID->"43da895d-a7eb-4556-a706-12e0526afd7c"]
 }, Open  ]],
@@ -1553,16 +1734,16 @@ Cell[26172, 547, 697, 12, 97, "Text",ExpressionUUID->"b4c6bd58-957a-4875-988e-a5
 Cell[26872, 561, 7770, 190, 472, "Input",ExpressionUUID->"59ff5baf-3d7f-415a-9531-7f73fbeeb4dc"],
 Cell[34645, 753, 2573, 70, 94, "Input",ExpressionUUID->"90552913-1437-480d-9ec7-b9b37dda8780"],
 Cell[37221, 825, 697, 12, 74, "Text",ExpressionUUID->"4036d811-267c-40d6-afeb-6b2a4799c076"],
-Cell[37921, 839, 8628, 201, 409, "Input",ExpressionUUID->"013294fe-28e5-4a33-b3e5-be5f2e0c61be"],
-Cell[46552, 1042, 620, 10, 74, "Text",ExpressionUUID->"cde10efd-58e5-43ee-b44a-c90036a0368c"],
-Cell[47175, 1054, 9163, 209, 703, "Input",ExpressionUUID->"43da895d-a7eb-4556-a706-12e0526afd7c"]
+Cell[37921, 839, 16495, 375, 703, "Input",ExpressionUUID->"05477ce7-de11-43ed-a93a-77d1ce94e85c"],
+Cell[54419, 1216, 620, 10, 74, "Text",ExpressionUUID->"cde10efd-58e5-43ee-b44a-c90036a0368c"],
+Cell[55042, 1228, 9477, 216, 724, "Input",ExpressionUUID->"43da895d-a7eb-4556-a706-12e0526afd7c"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[56375, 1268, 548, 10, 67, "Section",ExpressionUUID->"1fe2fb06-de83-421f-b76a-45dc3d746ed1"],
-Cell[56926, 1280, 11829, 219, 577, "Input",ExpressionUUID->"93745a21-8b81-4642-bcfb-bcbe8ad81946"],
+Cell[64556, 1449, 548, 10, 67, "Section",ExpressionUUID->"1fe2fb06-de83-421f-b76a-45dc3d746ed1"],
+Cell[65107, 1461, 11829, 219, 577, "Input",ExpressionUUID->"93745a21-8b81-4642-bcfb-bcbe8ad81946"],
 Cell[CellGroupData[{
-Cell[68780, 1503, 317, 7, 30, "Input",ExpressionUUID->"d4f220fc-a0d8-4c47-8eb4-88407045bfcc"],
-Cell[69100, 1512, 208, 4, 34, "Output",ExpressionUUID->"d1539f31-342d-4bea-b2c8-b4cd316250f0"]
+Cell[76961, 1684, 317, 7, 30, "Input",ExpressionUUID->"d4f220fc-a0d8-4c47-8eb4-88407045bfcc"],
+Cell[77281, 1693, 208, 4, 34, "Output",ExpressionUUID->"d1539f31-342d-4bea-b2c8-b4cd316250f0"]
 }, Open  ]]
 }, Open  ]]
 }
