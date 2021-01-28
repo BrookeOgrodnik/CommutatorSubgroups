@@ -5,6 +5,7 @@ Running python-3.7.6
 * Type 1
   - Class_number.ipynb: Just takes the file trace_only_converted.csv and draws plots of the class number of L, the class number of the commutator subgroup, ratios, average lenght of walks, etc.
   - Walks_of_traces.ipynb: Takes all_traces_converted.csv and plots walks and heat maps for the given conjugacy classes
+  - Walks_of_trace_hclass.ipynb: Does the same as Walks_of_traces.ipynb but does it for a file in a different format that represents the H conjugacy classes
   
   
 * Type 2
