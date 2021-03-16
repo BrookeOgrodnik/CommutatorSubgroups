@@ -19,5 +19,6 @@ This repository is dedicated to supplementary materials for my thesis. Many of t
   - This folder contains two type of python notebooks.  
   - Type 1: Creates images and dataframes to play with info from the CSV files
   - Type 2: Runs searches for the genus of conjugacy classes
+    NOTE what is refered to as genus in these files is what the dissertation and paper refer to as Commutator Width
   - Running python-3.7.6
  
