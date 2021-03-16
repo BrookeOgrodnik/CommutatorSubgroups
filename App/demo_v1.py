@@ -250,9 +250,9 @@ def genusfinder(matrix_rep):
 ###################################################################################################
 #getting the template together for the page along with instructional information about the results
 st.title("Properties of Admissible Traces")
-st.write("Admissible values are always the trace of some matrix in $$L=\\{\\gamma\\in \\Gamma(2) \mid \\gamma\\hspace{2pt}  \\mod(8) \\in \\{I, 5I\\}\\}$$. Sometimes, they are also the trace of elements of the subgroup $$\\Gamma'(2)=\\left< [X,Y] \mid X,Y\in \\Gamma(2)\\right>$$ where $$[X,Y]=X Y X^{-1} Y^{-1}.$$ Via this app you can learn about the matrix representations of the conjugacy classes of the different traces and the decomposition of them as a product of the generators of $\\Gamma(2)$.  You can also input a 'matrix' and look at the walks and genus associated with the class that you put in.")
+st.write("Admissible values are always the trace of some matrix in $$L=\\{\\gamma\\in \\Gamma(2) \mid \\gamma\\hspace{2pt}  \\mod(8) \\in \\{I, 5I\\}\\}$$. Sometimes, they are also the trace of elements of the subgroup $$\\Gamma'(2)=\\left< [X,Y] \mid X,Y\in \\Gamma(2)\\right>$$ where $$[X,Y]=X Y X^{-1} Y^{-1}.$$ Via this app you can learn about the matrix representations of the conjugacy classes of the different traces and the decomposition of them as a product of the generators of $\\Gamma(2)$.  You can also input a 'matrix' and look at the walks and width associated with the class that you put in.")
 
-tell_me=st.selectbox('Tell me more about what I am seeing!',(" ","What does admissible mean?", "What is h(t) and h'(t)?", "Why are some in blue?", "What is the Matrix Decomposition showing me?", "How can one quickly see that an element is a commutator?", "What is a genus?", "What is this picture that goes with the genus?"))
+tell_me=st.selectbox('Tell me more about what I am seeing!',(" ","What does admissible mean?", "What is h(t) and h'(t)?", "Why are some in blue?", "What is the Matrix Decomposition showing me?", "How can one quickly see that an element is a commutator?", "What is the Commutator Width?", "What is this picture that goes with the Commutator Width?"))
 
 #working on the info bar 
 if tell_me=="What does admissible mean?":
@@ -262,12 +262,12 @@ elif tell_me=="What is h(t) and h'(t)?":
 elif tell_me=="Why are some in blue?":
 	st.write("The matrices  in blue just mean that they are in the commutator subgroup $\\Gamma'(2)$.  ")    
 elif tell_me=="What is the Matrix Decomposition showing me?":
-	st.write("Any element in $L$ can be written as a product of $\\mathcal{A}$'s and $\mathcal{B}$'s where $\\mathcal{A}=\\begin{pmatrix}1 & 2\\\\0 & 1 \\end{pmatrix}$ and $\\mathcal{B}=\\begin{pmatrix}1 & 0\\\\2 & 1 \\end{pmatrix}$.  Also, because we are looking at conjugacy classes, we can always force our representatitative that we choose to start with $\\mathcal{A}$ and end with $\\mathcal{B}$.  Thus when you see the following result as a decompositon: $[[m_1, m_2, \\ldots, m_k],[n_1, n_2, \\ldots, n_k]]$, it is just shorthand for $\\mathcal{A}^{m_1}\\mathcal{B}^{n_1}\\cdots\\mathcal{A}^{m_k}\\mathcal{B}^{n_k}$. Keep this in mind when inputting your own in Walks and Genus.")
+	st.write("Any element in $L$ can be written as a product of $\\mathcal{A}$'s and $\mathcal{B}$'s where $\\mathcal{A}=\\begin{pmatrix}1 & 2\\\\0 & 1 \\end{pmatrix}$ and $\\mathcal{B}=\\begin{pmatrix}1 & 0\\\\2 & 1 \\end{pmatrix}$.  Also, because we are looking at conjugacy classes, we can always force our representatitative that we choose to start with $\\mathcal{A}$ and end with $\\mathcal{B}$.  Thus when you see the following result as a decompositon: $[[m_1, m_2, \\ldots, m_k],[n_1, n_2, \\ldots, n_k]]$, it is just shorthand for $\\mathcal{A}^{m_1}\\mathcal{B}^{n_1}\\cdots\\mathcal{A}^{m_k}\\mathcal{B}^{n_k}$. Keep this in mind when inputting your own in Walks and Commutator Width.")
 elif tell_me=="How can one quickly see that an element is a commutator?":
 	st.write("If you understand what the Matrix Decomposition is, then all you have to do to know whether or not a represenative is also a commutator is if the sum of the first list of the decomp is 0 as well as that of the second list. For example $[[-4, 2, 2],[100,-99,-1]]$ is some matrix that is a product of $\\mathcal{A}$'s and $\\mathcal{B}$'s and because both the exponents of $\\mathcal{A}$ and those of $\\mathcal{B}$ sum to zero, we can write it as a product of commutators.  One such way to write this element is $[\\mathcal{A}^{-4}, \\mathcal{B}^{100}][\\mathcal{B}^{100}, \\mathcal{A}^{-2}][\\mathcal{A}^{-2}, \\mathcal{B}]$.")
-elif tell_me=="What is a genus?":
-	st.write("Clearly, any matrix in the commutator subgroup, $\\Gamma'(2)$ which means that it can be written as a product of commutators, the genus is the minimum number of commutators needed to express the matrix. If you read the question, 'How can one quickly see that an element is a commutator?' then you saw that the matrix in the example was written as a 3-commutator.  However, it's genus is not 3 but rather 1 since it can be written as: $[\\mathcal{A}^{-4}\\mathcal{B}^{99}, \\mathcal{B}\\mathcal{A}^{2}]$. Note that the genus of a matrix is the same for all other elements in the conjugacy class. The genus shown for a given trace is the minimum commutator-genus of all of its commutator subgroups and if there are no commutator subgroups we say 0.")
-elif tell_me=="What is this picture that goes with the genus?":
+elif tell_me=="What is the Commutator Width?":
+	st.write("Clearly, any matrix in the commutator subgroup, $\\Gamma'(2)$ which means that it can be written as a product of commutators, the Commutator Width is the minimum number of commutators needed to express the matrix. If you read the question, 'How can one quickly see that an element is a commutator?' then you saw that the matrix in the example was written as a 3-commutator.  However, it's Commutator Width is not 3 but rather 1 since it can be written as: $[\\mathcal{A}^{-4}\\mathcal{B}^{99}, \\mathcal{B}\\mathcal{A}^{2}]$. Note that the Commutator Width of a matrix is the same for all other elements in the conjugacy class. The width shown for a given trace is the minimum commutator-width of all of its commutator subgroups and if there are no commutator subgroups we say 0.")
+elif tell_me=="What is this picture that goes with the width?":
 	st.write("First, take a second to note that you don't get a picture if the narrow length (how many times you switch from a to b) is 2 or 3. This is because such elements are always 1-commutators and there is a clear way to write them (for narrow length is 3, lemma in my thesis) so no picture is needed. The picture that you are seeing is if you give each $\\mathcal{A}$, $\\mathcal{B}$, $\\mathcal{A}^{-1}$, and $\\mathcal{B}^{-1}$ it's own point in the order they appear in the matrix.  For example, $[[1,-1],[5,-5]]$ is actually $\\mathcal{A}\\mathcal{B}^5\\mathcal{A}^{-1}\\mathcal{B}^{-5}$ so we plot the points $a, b, b, b, b, b, c, d, d, d, d, d$ in order counterclockwise around the unit circle beginining at $(0,1)$.  Then arcs are drawn between $a$'s and $c$'s and between $b$'s and $d$'s.  The minimum of the 'genus' of all such graphs (which we are obmitting), gives us the genus of the matrix and can be used to explicitly write down the matrix as an $n$-commutator use the paper of Goldstein and Turner from 1979. Note that the larger the walk is, the longer this algorithm will take which is why you aren't allowed to put matrices in whose decomposition is too big.")
 ############################################################################################
 
@@ -285,7 +285,7 @@ decom=st.sidebar.checkbox("Matrix Decomposition")
 
 #Body Associated with feature 1
 st.header("Class Number Information for $\\left|t\\right|="+str(trace_chosen)+"$")
-st.subheader("$h(t)="+str(alltraces.loc[alltraces.trace==trace_chosen].L_class_number.values[0])+"$,  $h'(t)="+str(alltraces.loc[alltraces.trace==trace_chosen].commutator_class_number.values[0])+"$ and genus $="+str(alltraces.loc[alltraces.trace==trace_chosen].genus.values[0])+"$")
+st.subheader("$h(t)="+str(alltraces.loc[alltraces.trace==trace_chosen].L_class_number.values[0])+"$,  $h'(t)="+str(alltraces.loc[alltraces.trace==trace_chosen].commutator_class_number.values[0])+"$ and width $="+str(alltraces.loc[alltraces.trace==trace_chosen].genus.values[0])+"$")
 
 
 if mat:
@@ -316,10 +316,10 @@ if decom:
 st.write("____________________")
 ##########################################################################################################
 #the sidebar feature 2
-st.sidebar.header("Walks and Genus")
+st.sidebar.header("Walks and Commutator Width")
 decomp=st.sidebar.text_input("Decomposition", "")
 showwalk=st.sidebar.checkbox("Plot the walk")
-genusq=st.sidebar.checkbox("What is the genus?")
+genusq=st.sidebar.checkbox("What is the Commutator Width?")
 #making sure the decomposition is of the right form will take a while
 #for if it is of length greater than 3, you don't want it too big
 if decomp:
@@ -337,7 +337,7 @@ if decomp:
 						st.pyplot()
 					if genusq:
 						if sum(lists[0])!=0 or sum(lists[1])!=0:
-							st.success("This is not in the commutator subgroup so it has no genus")
+							st.success("This is not in the commutator subgroup so it has no width")
 						elif len(lists[0])<=3:
 							st.success("This is a 1-commutator!")   
 							st.balloons()                            
