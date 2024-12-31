@@ -12,7 +12,7 @@ from itertools import permutations
 ####################################################################################################################################
 #This is the set up for the application
 #bring in the info on all of the classes
-@st.cache
+@st.cache_resource
 def setup():
 	df=pd.read_csv('admis.csv')
 	df['matrix']=[ast.literal_eval(m) for m in df.matrix.values]
@@ -20,7 +20,7 @@ def setup():
 
 
 #bring in the info on all of the traces
-@st.cache
+@st.cache_resource
 def setup2():
 	return pd.read_csv('results.csv')
 
@@ -33,12 +33,12 @@ alltraces=setup2()
 #####################################################################################################################################
 #functions needed to make this app work
 #finding the set of traces to choose from that have proper congruences
-@st.cache
+@st.cache_data
 def possibletraces(m256,m9):  
 	return alltraces.loc[((-1*alltraces.trace % 256 == m256) & (-1*alltraces.trace % 9 == m9)) | ((alltraces.trace % 256 == m256) & (alltraces.trace % 9 == m9))].trace.values 
 
 #the matrix version of our conjugacy classes
-@st.cache
+@st.cache_data
 def getMatrices(t):
 	listofwords=[]
 	matrices=dataset.loc[dataset.trace==t].matrix.values
@@ -49,7 +49,7 @@ def getMatrices(t):
 	return listofwords
 
 #the decomposition version of our conjugacy classes
-@st.cache
+@st.cache_data
 def getDecomp(t):
 	listofwords=[]
 	matrices=dataset.loc[dataset.trace==t].decomp.values
@@ -60,7 +60,7 @@ def getDecomp(t):
 	return listofwords
 
 #checking if the list contains only integers by first grabing the integers in each list
-@st.cache
+@st.cache_data
 def newlist(mylist):
 	new_list = []
 	for value in mylist:
@@ -71,7 +71,7 @@ def newlist(mylist):
 	return new_list   
 
 #Shows a plot of the walk in Z^2
-@st.cache
+@st.cache_data
 def walkfinder(li):
 	avalues=[0]*(2*len(li[0])+1)
 	bvalues=[0]*(2*len(li[0])+1)
@@ -87,7 +87,7 @@ def walkfinder(li):
 
 
 #takes a matrix and converts it to a's b's c's and d's
-@st.cache
+@st.cache_data
 def convertToAandB(matrix):
 	asandbs=[]
 	for i in range(0,len(matrix[0])):
@@ -132,6 +132,38 @@ def orientation(p, q, r):
 	else:          
 		# Colinear orientation 
 		return 0
+
+#A function that returns the rank of the n x n matrix modulo 2
+def computeRankMod2(size, matrix):
+	rowsWithPiviot = []
+	#for each column
+	for i in range(size):
+		#pivot row
+		pivotRow=None
+		piv=None
+		#for each rows
+		for j in range(size):
+			# if it is not already a pivot
+			if j not in rowsWithPiviot:
+				#position in vector version of matrix
+				pos=size*j+i
+				#looking for a value of 1 in the pivot (since mod 2)
+				if matrix[pos]==1:
+					#a row we care about i.e. either it is going to be our pivot
+					if pivotRow==None:
+						pivotRow = j
+						piv = matrix[pos:size*(j+1)]
+						rowsWithPiviot.append(j)
+					# or we actually need to subtract pivot from this row
+					else:
+						for k in range(size):
+							if k not in rowsWithPiviot:
+								startPos = size*k+i
+								#only subtract pivot row from it if it starts with a 1
+								if matrix[startPos]==1:
+									for m in range(size-i):
+										matrix[startPos+m]=(matrix[startPos+m]-piv[m])%2
+	return len(rowsWithPiviot)
   
 # The main function that returns true if  
 # the line segment 'p1q1' and 'p2q2' intersect. 
@@ -163,7 +195,7 @@ def doIntersect(p1,q1,p2,q2):
 	return False
 
 #creates the matrix that describes the line intersections and prints out the rank of the matrix in Z_2 divided by 2
-@st.cache
+@st.cache_data
 def makeTheMatrix(graph, size):
 	mini_matrix=[0]*(size**2)
 	for loop1 in range(0,len(graph)):
@@ -174,42 +206,9 @@ def makeTheMatrix(graph, size):
 				mini_matrix[loop2*size+loop1]=1
 	return int(computeRankMod2(size, mini_matrix).rank()/2)
 
-#A function that returns the rank of the n x n matrix modulo 2
-@st.cache
-def computeRankMod2(size, matrix):
-	rowsWithPiviot = []
-	#for each column
-	for i in range(size):
-		#pivot row
-		pivotRow=None
-		piv=None
-		#for each rows
-		for j in range(size):
-			# if it is not already a pivot
-			if j not in rowsWithPiviot:
-				#position in vector version of matrix
-				pos=size*j+i
-				#looking for a value of 1 in the pivot (since mod 2)
-				if matrix[pos]==1:
-					#a row we care about i.e. either it is going to be our pivot
-					if pivotRow==None:
-						pivotRow = j
-						piv = matrix[pos:size*(j+1)]
-						rowsWithPiviot.append(j)
-					# or we actually need to subtract pivot from this row
-					else:
-						for k in range(size):
-							if k not in rowsWithPiviot:
-								startPos = size*k+i
-								#only subtract pivot row from it if it starts with a 1
-								if matrix[startPos]==1:
-									for m in range(size-i):
-										matrix[startPos+m]=(matrix[startPos+m]-piv[m])%2
-	return len(rowsWithPiviot)
-
 
 #A function that finds the line segments for each point.
-@st.cache
+@st.cache_data
 def makeTheGraph(pair,size):
 	#create the evenly space points on the circle
 	thelines=[]
@@ -226,7 +225,7 @@ def makeTheGraph(pair,size):
 
 #takes our list of 'a', 'b', 'c', 'd' and creates all possible matchings between the 'a's and 'c's and the 'b''s and 'd''s 
 ## This is the one I am thinking of changing... what if we just run it in here???? 
-@st.cache
+@st.cache_data
 def matching_pairs(asbs, sizes):
 	best_pairing=0;
 	best_genus= int(2*np.floor(sizes))
@@ -273,7 +272,7 @@ def matching_pairs(asbs, sizes):
 
 
 #Calculates the genus or throws an exception
-@st.cache
+@st.cache_data
 def genusfinder(matrix_rep):
 	sizes=int(sum(np.absolute(matrix_rep[0])+np.absolute(matrix_rep[1]))/2)    
 	return matching_pairs(convertToAandB(matrix_rep), sizes)
