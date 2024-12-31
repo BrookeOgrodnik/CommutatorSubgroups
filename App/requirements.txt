@@ -1,3 +1,2 @@
 streamlit==1.41.0 
 matplotlib==3.10.0
-flint-py==0.3.7

@@ -5,7 +5,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import flint as fl
 import ast
 from itertools import groupby
 from itertools import permutations
@@ -173,7 +172,40 @@ def makeTheMatrix(graph, size):
 			if doIntersect(Point(graph[loop1][0],graph[loop1][1]),Point(graph[loop1][2],graph[loop1][3]),Point(graph[loop2][0],graph[loop2][1]),Point(graph[loop2][2],graph[loop2][3])):
 				mini_matrix[loop1*size+loop2]=1
 				mini_matrix[loop2*size+loop1]=1
-	return int(fl.nmod_mat(size, size, mini_matrix, 2).rank()/2)
+	return int(computeRankMod2(size, mini_matrix).rank()/2)
+
+#A function that returns the rank of the n x n matrix modulo 2
+@st.cache
+def computeRankMod2(size, matrix):
+	rowsWithPiviot = []
+	#for each column
+	for i in range(size):
+		#pivot row
+		pivotRow=None
+		piv=None
+		#for each rows
+		for j in range(size):
+			# if it is not already a pivot
+			if j not in rowsWithPiviot:
+				#position in vector version of matrix
+				pos=size*j+i
+				#looking for a value of 1 in the pivot (since mod 2)
+				if matrix[pos]==1:
+					#a row we care about i.e. either it is going to be our pivot
+					if pivotRow==None:
+						pivotRow = j
+						piv = matrix[pos:size*(j+1)]
+						rowsWithPiviot.append(j)
+					# or we actually need to subtract pivot from this row
+					else:
+						for k in range(size):
+							if k not in rowsWithPiviot:
+								startPos = size*k+i
+								#only subtract pivot row from it if it starts with a 1
+								if matrix[startPos]==1:
+									for m in range(size-i):
+										matrix[startPos+m]=(matrix[startPos+m]-piv[m])%2
+	return len(rowsWithPiviot)
 
 
 #A function that finds the line segments for each point.
