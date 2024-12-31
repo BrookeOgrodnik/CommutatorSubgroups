@@ -12,17 +12,21 @@ from itertools import permutations
 ####################################################################################################################################
 #This is the set up for the application
 #bring in the info on all of the classes
-@st.cache_data
+@st.cache_resource
 def setup():
-	df=pd.read_csv('admis.csv')
+	url = 'https://raw.githubusercontent.com/BrookeOgrodnik/CommutatorSubgroups/refs/heads/master/App/admis.csv'
+	response = requests.get(url)
+	df=pd.read_csv(StringIO(response.text))
 	df['matrix']=[ast.literal_eval(m) for m in df.matrix.values]
 	return df
 
 
 #bring in the info on all of the traces
-@st.cache_data
+@st.cache_resource
 def setup2():
-	return pd.read_csv('results.csv')
+	url = 'https://raw.githubusercontent.com/BrookeOgrodnik/CommutatorSubgroups/refs/heads/master/App/results.csv'
+	response = requests.get(url)
+	return pd.read_csv(StringIO(response.text))
 
 dataset=setup()
 alltraces=setup2()
