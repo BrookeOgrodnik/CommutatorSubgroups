@@ -12,7 +12,7 @@ from itertools import permutations
 ####################################################################################################################################
 #This is the set up for the application
 #bring in the info on all of the classes
-@st.cache_resource
+@st.cache_data
 def setup():
 	df=pd.read_csv('admis.csv')
 	df['matrix']=[ast.literal_eval(m) for m in df.matrix.values]
@@ -20,7 +20,7 @@ def setup():
 
 
 #bring in the info on all of the traces
-@st.cache_resource
+@st.cache_data
 def setup2():
 	return pd.read_csv('results.csv')
 
