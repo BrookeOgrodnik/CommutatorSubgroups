@@ -1,5 +1,3 @@
-streamlit==0.60.0
-pandas==1.0.1
-numpy==1.18.1
-matplotlib==3.1.2
+streamlit==1.41.0 
+matplotlib==3.10.0
 flint-py==0.3.7
