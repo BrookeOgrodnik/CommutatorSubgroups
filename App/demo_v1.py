@@ -210,7 +210,7 @@ def makeTheMatrix(graph, size):
 			if doIntersect(Point(graph[loop1][0],graph[loop1][1]),Point(graph[loop1][2],graph[loop1][3]),Point(graph[loop2][0],graph[loop2][1]),Point(graph[loop2][2],graph[loop2][3])):
 				mini_matrix[loop1*size+loop2]=1
 				mini_matrix[loop2*size+loop1]=1
-	return int(computeRankMod2(size, mini_matrix).rank()/2)
+	return int(computeRankMod2(size, mini_matrix)/2)
 
 
 #A function that finds the line segments for each point.
@@ -369,9 +369,10 @@ if decomp:
 					st.subheader("The narrow length is $"+str(len(lists[0]))+"$, length of a walk is $"+str(sum([abs(ele) for ele in lists[0]])+sum([abs(ele) for ele in lists[1]]))+"$, and the final position is $"+str([sum(lists[0]),sum(lists[1])])+"$") 
 					if showwalk:
 						points=walkfinder(lists)
-						plt.plot(points[0], points[1], 'go-.')
-						plt.plot(0,0, 'ro')
-						st.pyplot()
+						fig1, ax1 = plt.subplots()
+						ax1.plot(points[0], points[1], 'go-.')
+						ax1.plot(0,0, 'ro')
+						st.pyplot(fig1)
 					if genusq:
 						if sum(lists[0])!=0 or sum(lists[1])!=0:
 							st.success("This is not in the commutator subgroup so it has no width")
@@ -386,21 +387,20 @@ if decomp:
 								if results[0]==1:
 									st.balloons()  
 								######################################################################                                    
-								#Graph the stupid genus picture                             
+								#Graph the genus picture                             
 								x = results[2]
 								y = results[3]
-								plt.figure(figsize=(5.0, 5.0))
+								fig2, ax2 = plt.subplots(figsize=(5.0, 5.0))
 								# also set the x and y axis limits
-								plt.xlim(-1.2, 1.2)
-								plt.ylim(-1.2, 1.2)
+								ax2.set_xlim([-1.2, 1.2])
+								ax2.set_ylim([-1.2, 1.2])
 								# plot the x,y points, connecting successive points with lines
-								plt.scatter(x,y,label=results[1])
+								ax2.scatter(x,y,label=results[1])
 								for i in range(0,size):
 									pt1=results[1].index(i+1)
 									pt2=results[1].index(i+1,pt1+1,len(results[1]))
-									plt.plot([x[pt1],x[pt2]],[y[pt1],y[pt2]])
-								plt.plot()
-								st.pyplot()
+									ax2.plot([x[pt1],x[pt2]],[y[pt1],y[pt2]])
+								st.pyplot(fig2)
 								######################################################################                                    
 							else:                                
 								st.warning("Please choose a smaller length so you don't break the app.")                          
