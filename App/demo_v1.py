@@ -107,38 +107,6 @@ def convertToAandB(matrix):
 			asandbs=asandbs+['d']*(-matrix[1][i])
 	return asandbs        
 
-class Point: 
-	def __init__(self, x, y): 
-		self.x = x 
-		self.y = y 
-  
-# Given three colinear points p, q, r, the function checks if  
-# point q lies on line segment 'pr'  
-def onSegment(p, q, r): 
-	if ( (q.x <= max(p.x, r.x)) and (q.x >= min(p.x, r.x)) and 
-           (q.y <= max(p.y, r.y)) and (q.y >= min(p.y, r.y))): 
-		return True
-	return False
-
-def orientation(p, q, r): 
-	# to find the orientation of an ordered triplet (p,q,r) 
-	# function returns the following values: 
-	# 0 : Colinear points 
-	# 1 : Clockwise points 
-	# 2 : Counterclockwise   
-	# See https://www.geeksforgeeks.org/orientation-3-ordered-points/amp/  
-	# for details of below formula.  
-	val = (float(q.y - p.y) * (r.x - q.x)) - (float(q.x - p.x) * (r.y - q.y)) 
-	if (val > 0):        
-		# Clockwise orientation 
-		return 1
-	elif (val < 0):        
-		# Counterclockwise orientation 
-		return 2
-	else:          
-		# Colinear orientation 
-		return 0
-
 #A function that returns the rank of the n x n matrix modulo 2
 def computeRankMod2(size, matrix):
 	rowsWithPiviot = []
@@ -171,45 +139,24 @@ def computeRankMod2(size, matrix):
 										matrix[startPos+m]=(matrix[startPos+m]-piv[m])%2
 	return len(rowsWithPiviot)
   
-# The main function that returns true if  
-# the line segment 'p1q1' and 'p2q2' intersect. 
-def doIntersect(p1,q1,p2,q2): 
-      
-	# Find the 4 orientations required for  
-	# the general and special cases 
-	o1 = orientation(p1, q1, p2) 
-	o2 = orientation(p1, q1, q2) 
-	o3 = orientation(p2, q2, p1) 
-	o4 = orientation(p2, q2, q1) 
-	# General case 
-	if ((o1 != o2) and (o3 != o4)): 
-		return True 
-	# Special Cases  
-	# p1 , q1 and p2 are colinear and p2 lies on segment p1q1 
-	if ((o1 == 0) and onSegment(p1, p2, q1)): 
-		return True
-	# p1 , q1 and q2 are colinear and q2 lies on segment p1q1 
-	if ((o2 == 0) and onSegment(p1, q2, q1)): 
-		return True 
-	# p2 , q2 and p1 are colinear and p1 lies on segment p2q2 
-	if ((o3 == 0) and onSegment(p2, p1, q2)): 
-		return True 
-	# p2 , q2 and q1 are colinear and q1 lies on segment p2q2 
-	if ((o4 == 0) and onSegment(p2, q1, q2)): 
-		return True  
-	# If none of the cases 
-	return False
-
 #creates the matrix that describes the line intersections and prints out the rank of the matrix in Z_2 divided by 2
 @st.cache_data
-def makeTheMatrix(graph, size):
+def makeTheMatrix(thePositions, size):
 	mini_matrix=[0]*(size**2)
-	for loop1 in range(0,len(graph)):
-		for loop2 in range(loop1+1, len(graph)):
+	finalPositions = [-1]*size
+	for i in range(size):
+		prod = i*size
+		start=finalPositions[i]+1
+		if start==0:
+			start=2*i+1
+		for j in range(start, 2*size):
 			#does line i intersect line j
-			if doIntersect(Point(graph[loop1][0],graph[loop1][1]),Point(graph[loop1][2],graph[loop1][3]),Point(graph[loop2][0],graph[loop2][1]),Point(graph[loop2][2],graph[loop2][3])):
-				mini_matrix[loop1*size+loop2]=1
-				mini_matrix[loop2*size+loop1]=1
+			theIndex= thePositions[j]-1
+			if theIndex==i:
+				break
+			mini_matrix[prod+theIndex]^=1
+			if finalPositions[theIndex]==-1:
+				finalPositions[theIndex]=j
 	return int(computeRankMod2(size, mini_matrix)/2)
 
 
@@ -265,15 +212,16 @@ def matching_pairs(asbs, sizes):
 					else: 
 						thispos[i]=found
 						thispos[mini.index(theb[dval.index([i,'d'])])]=found
-						found=found+1
-			linesxandy=makeTheGraph(thispos,sizes)                            
-			minigenus=makeTheMatrix(linesxandy[0],sizes)
+						found=found+1                            
+			minigenus=minigenus=makeTheMatrix(thispos,sizes)
 			if minigenus<best_genus:
 				best_genus=minigenus
 				best_pairing=thispos
 				#ayo we are done
 				if best_genus==1:
+					linesxandy=makeTheGraph(best_pairing,sizes)
 					return [best_genus, best_pairing, linesxandy[1], linesxandy[2]]
+	linesxandy=makeTheGraph(best_pairing,sizes)
 	return [best_genus, best_pairing, linesxandy[1], linesxandy[2]]
 
 
@@ -380,7 +328,7 @@ if decomp:
 							st.success("This is a 1-commutator!")   
 							st.balloons()                            
 						else:
-							if sum([abs(ele) for ele in lists[0]])+sum([abs(ele) for ele in lists[1]])<16:
+							if sum([abs(ele) for ele in lists[0]])+sum([abs(ele) for ele in lists[1]])<50:
 								results=genusfinder(lists)
 								size=int(sum(np.absolute(lists[0])+np.absolute(lists[1]))/2)
 								st.success("This is a "+str(results[0])+"-commutator")
