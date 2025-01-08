@@ -252,7 +252,7 @@ elif tell_me=="How can one quickly see that an element is a commutator?":
 	st.write("If you understand what the Matrix Decomposition is, then all you have to do to know whether or not a represenative is also a commutator is if the sum of the first list of the decomp is 0 as well as that of the second list. For example $[[-4, 2, 2],[100,-99,-1]]$ is some matrix that is a product of $\\mathcal{A}$'s and $\\mathcal{B}$'s and because both the exponents of $\\mathcal{A}$ and those of $\\mathcal{B}$ sum to zero, we can write it as a product of commutators.  One such way to write this element is $[\\mathcal{A}^{-4}, \\mathcal{B}^{100}][\\mathcal{B}^{100}, \\mathcal{A}^{-2}][\\mathcal{A}^{-2}, \\mathcal{B}]$.")
 elif tell_me=="What is the Commutator Width?":
 	st.write("Clearly, any matrix in the commutator subgroup, $\\Gamma'(2)$ which means that it can be written as a product of commutators, the Commutator Width is the minimum number of commutators needed to express the matrix. If you read the question, 'How can one quickly see that an element is a commutator?' then you saw that the matrix in the example was written as a 3-commutator.  However, it's Commutator Width is not 3 but rather 1 since it can be written as: $[\\mathcal{A}^{-4}\\mathcal{B}^{99}, \\mathcal{B}\\mathcal{A}^{2}]$. Note that the Commutator Width of a matrix is the same for all other elements in the conjugacy class. The width shown for a given trace is the minimum commutator-width of all of its commutator subgroups and if there are no commutator subgroups we say 0.")
-elif tell_me=="What is this picture that goes with the width?":
+elif tell_me=="What is this picture that goes with the Commutator Width?":
 	st.write("First, take a second to note that you don't get a picture if the narrow length (how many times you switch from a to b) is 2 or 3. This is because such elements are always 1-commutators and there is a clear way to write them (for narrow length is 3, lemma in my thesis) so no picture is needed. The picture that you are seeing is if you give each $\\mathcal{A}$, $\\mathcal{B}$, $\\mathcal{A}^{-1}$, and $\\mathcal{B}^{-1}$ it's own point in the order they appear in the matrix.  For example, $[[1,-1],[5,-5]]$ is actually $\\mathcal{A}\\mathcal{B}^5\\mathcal{A}^{-1}\\mathcal{B}^{-5}$ so we plot the points $a, b, b, b, b, b, c, d, d, d, d, d$ in order counterclockwise around the unit circle beginining at $(0,1)$.  Then arcs are drawn between $a$'s and $c$'s and between $b$'s and $d$'s.  The minimum of the 'genus' of all such graphs (which we are obmitting), gives us the genus of the matrix and can be used to explicitly write down the matrix as an $n$-commutator use the paper of Goldstein and Turner from 1979. Note that the larger the walk is, the longer this algorithm will take which is why you aren't allowed to put matrices in whose decomposition is too big.")
 ############################################################################################
 
@@ -328,7 +328,7 @@ if decomp:
 							st.success("This is a 1-commutator!")   
 							st.balloons()                            
 						else:
-							if sum([abs(ele) for ele in lists[0]])+sum([abs(ele) for ele in lists[1]])<50:
+							if sum([abs(ele) for ele in lists[0]])+sum([abs(ele) for ele in lists[1]])<25:
 								results=genusfinder(lists)
 								size=int(sum(np.absolute(lists[0])+np.absolute(lists[1]))/2)
 								st.success("This is a "+str(results[0])+"-commutator")
